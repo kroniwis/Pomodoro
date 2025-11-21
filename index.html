@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pomodoro</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --accent: #ff6b6b;
+        --muted: #94a3b8;
+        color-scheme: dark;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background: linear-gradient(180deg, #071023 0%, #0b1220 100%);
+        color: #e6eef8;
+      }
+      .app {
+        width: 420px;
+        margin: 40px auto;
+        background: var(--card);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+      }
+      h1 {
+        margin: 0 0 14px;
+        font-size: 20px;
+      }
+      .display {
+        font-size: 72px;
+        text-align: center;
+        margin: 18px 0;
+        font-weight: 600;
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+      button {
+        background: #0b1228;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        color: #e6eef8;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button.primary {
+        background: var(--accent);
+        color: #08121a;
+      }
+      .modes {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin: 12px 0;
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .settings {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      input[type="number"] {
+        width: 60px;
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: transparent;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <h1>Pomodoro</h1>
+      <div class="modes">
+        <button id="mode-pomodoro" class="mode-btn">Pomodoro</button>
+        <button id="mode-short" class="mode-btn">Descanso corto</button>
+        <button id="mode-long" class="mode-btn">Descanso largo</button>
+      </div>
+      <div class="display" id="time">25:00</div>
+      <div class="controls">
+        <button id="start" class="primary">Iniciar</button>
+        <button id="pause">Pausar</button>
+        <button id="reset">Reiniciar</button>
+      </div>
+      <div style="text-align: center" class="small">
+        Sesiones completadas: <span id="completed">0</span>
+      </div>
+      <div class="footer">
+        <div class="settings small">
+          <label
+            >Pomodoro
+            <input id="input-pomo" type="number" min="1" value="25" />m</label
+          >
+          <label
+            >Short
+            <input id="input-short" type="number" min="1" value="5" />m</label
+          >
+          <label
+            >Long
+            <input id="input-long" type="number" min="1" value="15" />m</label
+          >
+        </div>
+        <div class="small">Notificaciones y sonido incluidos</div>
+      </div>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>
