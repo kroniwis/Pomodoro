@@ -13,6 +13,7 @@
     inputP: document.getElementById("input-pomo"),
     inputS: document.getElementById("input-short"),
     inputL: document.getElementById("input-long"),
+    body: document.body,
   };
 
   class PomodoroTimer {
@@ -52,6 +53,11 @@
       selectors.modeP.addEventListener("click", () => this.setMode("pomodoro"));
       selectors.modeS.addEventListener("click", () => this.setMode("short"));
       selectors.modeL.addEventListener("click", () => this.setMode("long"));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && this.running) {
+          this.pause();
+        }
+      });
       selectors.inputP.addEventListener("change", () => {
         this.settings.pomodoro = Math.max(
           1,
@@ -97,6 +103,22 @@
       selectors.completed.textContent = this.sessions;
     }
 
+    exitFullscreenMode() {
+      if (selectors.body.classList.contains("fullscreen-mode")) {
+        selectors.body.classList.remove("fullscreen-mode");
+        selectors.body.classList.add("fullscreen-mode-exit");
+        setTimeout(() => {
+          selectors.body.classList.remove("fullscreen-mode-exit");
+        }, 800);
+      } else if (selectors.body.classList.contains("fullscreen-mode-blue")) {
+        selectors.body.classList.remove("fullscreen-mode-blue");
+        selectors.body.classList.add("fullscreen-mode-exit-blue");
+        setTimeout(() => {
+          selectors.body.classList.remove("fullscreen-mode-exit-blue");
+        }, 800);
+      }
+    }
+
     setMode(mode) {
       this.mode = mode;
       this.remaining = this.minutesToSeconds(this.settings[mode]);
@@ -108,6 +130,11 @@
       this.running = true;
       selectors.start.disabled = true;
       selectors.pause.disabled = false;
+      if (this.mode === "short" || this.mode === "long") {
+        selectors.body.classList.add("fullscreen-mode-blue");
+      } else {
+        selectors.body.classList.add("fullscreen-mode");
+      }
       this.interval = setInterval(() => this.tick(), 1000);
     }
     pause() {
@@ -115,10 +142,12 @@
       this.running = false;
       selectors.start.disabled = false;
       selectors.pause.disabled = true;
+      this.exitFullscreenMode();
       clearInterval(this.interval);
     }
     reset() {
       this.pause();
+      this.exitFullscreenMode();
       this.remaining = this.minutesToSeconds(this.settings[this.mode]);
       this.updateDisplay();
     }

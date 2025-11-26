@@ -82,7 +82,7 @@
         min-width: 110px;
         border-radius: 10px;
         background: #07112a;
-        border: 1px solid rgba(255,255,255,0.04);
+        border: 1px solid rgba(255, 255, 255, 0.04);
         color: inherit;
         cursor: pointer;
       }
@@ -130,6 +130,138 @@
         text-align: center;
         display: block;
       }
+      /* Modo fullscreen durante countdown */
+      @keyframes expandDisplay {
+        from {
+          font-size: 72px;
+        }
+        to {
+          font-size: 200px;
+        }
+      }
+
+      @keyframes darkBackground {
+        from {
+          background: linear-gradient(180deg, #071023 0%, #0b1220 100%);
+        }
+        to {
+          background: #000000;
+        }
+      }
+
+      @keyframes blueBackground {
+        from {
+          background: linear-gradient(180deg, #071023 0%, #0b1220 100%);
+        }
+        to {
+          background: #4d9ba8;
+        }
+      }
+
+      body.fullscreen-mode {
+        animation: darkBackground 0.8s ease-in-out forwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      body.fullscreen-mode-blue {
+        animation: blueBackground 0.8s ease-in-out forwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      body.fullscreen-mode .app,
+      body.fullscreen-mode-blue .app {
+        width: 100%;
+        margin: 0;
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      body.fullscreen-mode .display {
+        animation: expandDisplay 0.8s ease-in-out forwards;
+        margin: 0;
+        color: #ffffff;
+      }
+      body.fullscreen-mode h1,
+      body.fullscreen-mode .modes,
+      body.fullscreen-mode .controls,
+      body.fullscreen-mode .small,
+      body.fullscreen-mode .footer {
+        animation: fadeOut 0.5s ease-in-out forwards;
+      }
+
+      body.fullscreen-mode-blue .display {
+        animation: expandDisplay 0.8s ease-in-out forwards;
+        margin: 0;
+        color: #ffffff;
+      }
+      body.fullscreen-mode-blue h1,
+      body.fullscreen-mode-blue .modes,
+      body.fullscreen-mode-blue .controls,
+      body.fullscreen-mode-blue .small,
+      body.fullscreen-mode-blue .footer {
+        animation: fadeOut 0.5s ease-in-out forwards;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          pointer-events: auto;
+        }
+        to {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          pointer-events: none;
+        }
+        to {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+
+      body.fullscreen-mode-exit {
+        animation: darkBackground 0.8s ease-in-out reverse forwards;
+      }
+
+      body.fullscreen-mode-exit-blue {
+        animation: blueBackground 0.8s ease-in-out reverse forwards;
+      }
+
+      body.fullscreen-mode-exit .display,
+      body.fullscreen-mode-exit-blue .display {
+        animation: expandDisplay 0.8s ease-in-out reverse forwards;
+      }
+
+      body.fullscreen-mode-exit h1,
+      body.fullscreen-mode-exit .modes,
+      body.fullscreen-mode-exit .controls,
+      body.fullscreen-mode-exit .small,
+      body.fullscreen-mode-exit .footer,
+      body.fullscreen-mode-exit-blue h1,
+      body.fullscreen-mode-exit-blue .modes,
+      body.fullscreen-mode-exit-blue .controls,
+      body.fullscreen-mode-exit-blue .small,
+      body.fullscreen-mode-exit-blue .footer {
+        animation: fadeIn 0.5s ease-in-out 0.3s forwards;
+      }
     </style>
   </head>
   <body>
@@ -153,9 +285,18 @@
       </div>
       <div class="footer">
         <div class="settings small">
-          <label><span class="label-name">Pomodoro</span><input id="input-pomo" type="number" min="1" value="25" /></label>
-          <label><span class="label-name">Short</span><input id="input-short" type="number" min="1" value="5" /></label>
-          <label><span class="label-name">Long</span><input id="input-long" type="number" min="1" value="15" /></label>
+          <label
+            ><span class="label-name">Pomodoro</span
+            ><input id="input-pomo" type="number" min="1" value="25"
+          /></label>
+          <label
+            ><span class="label-name">Short</span
+            ><input id="input-short" type="number" min="1" value="5"
+          /></label>
+          <label
+            ><span class="label-name">Long</span
+            ><input id="input-long" type="number" min="1" value="15"
+          /></label>
         </div>
       </div>
     </div>
